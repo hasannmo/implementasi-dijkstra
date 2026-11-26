@@ -2,7 +2,6 @@ import heapq
 import os
 import sys
 
-
 def load_locations(filepath):
     locations = {}
     with open(filepath, "r", encoding="utf-8") as f:
@@ -18,7 +17,6 @@ def load_locations(filepath):
                 locations[code] = {"name": name, "is_safe": is_safe}
     return locations
 
-
 def load_graph(filepath):
     graph = {}
     with open(filepath, "r", encoding="utf-8") as f:
@@ -33,7 +31,6 @@ def load_graph(filepath):
             if weight > 0:
                 graph[node][target] = weight
     return graph
-
 
 def find_node(query, locations):
     query_str = query.strip()
@@ -51,16 +48,23 @@ def find_node(query, locations):
             return code
     return None
 
-
-def dijkstra_nearest_safe(start, graph, locations):
+def dijkstra_steps(start, graph, locations):
+    """Generator: menghasilkan snapshot tiap langkah Dijkstra (dipakai simulasi)."""
     distances = {node: float("inf") for node in graph}
     previous = {node: None for node in graph}
     distances[start] = 0
     pq = [(0, start)]
+    visited = set()
 
+    def snap(kind, **extra):
+        return {"type": kind, "dist": dict(distances), "prev": dict(previous),
+                "visited": sorted(visited), "pq": sorted(pq), **extra}
+
+    yield snap("init")
     while pq:
         current_dist, current_node = heapq.heappop(pq)
         if current_dist > distances[current_node]:
+            yield snap("stale", cur=current_node, popped=current_dist)
             continue
         if locations[current_node]["is_safe"]:
             path = []
@@ -69,17 +73,33 @@ def dijkstra_nearest_safe(start, graph, locations):
                 path.append(node)
                 node = previous[node]
             path.reverse()
-            return current_node, current_dist, path
+            visited.add(current_node)
+            yield snap("done", cur=current_node, popped=current_dist, path=path)
+            return
 
+        relax = []
         for neighbor, weight in graph[current_node].items():
             distance = current_dist + weight
-            if distance < distances[neighbor]:
+            old = distances[neighbor]
+            updated = distance < old
+            if updated:
                 distances[neighbor] = distance
                 previous[neighbor] = current_node
                 heapq.heappush(pq, (distance, neighbor))
+            relax.append({"to": neighbor, "w": weight, "nd": distance,
+                          "old": old, "ok": updated})
+        visited.add(current_node)
+        yield snap("expand", cur=current_node, popped=current_dist, relax=relax)
+    yield snap("fail")
 
+def dijkstra_nearest_safe(start, graph, locations):
+    last = None
+    for last in dijkstra_steps(start, graph, locations):
+        pass
+    if last["type"] == "done":
+        node = last["cur"]
+        return node, last["dist"][node], last["path"]
     return None, float("inf"), []
-
 
 def main():
     base_dir = os.path.dirname(os.path.abspath(__file__))

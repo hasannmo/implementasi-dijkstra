@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Simulasi Dijkstra: Rute Evakuasi ITS</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="top">
+    <h1>Rute Evakuasi ke Lokasi Aman Terdekat</h1>
+    <div class="controls">
+      <label>Titik Asal <select id="start"></select></label>
+      <button id="reset">Reset</button>
+      <button id="prev">Mundur</button>
+      <button id="next" class="primary">Langkah Berikutnya</button>
+      <button id="play">Putar</button>
+      <label>Kecepatan <input type="range" id="spd" min="1" max="5" value="3"></label>
+      <span id="cnt" class="count"></span>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="map">
+      <svg id="svg" viewBox="0 0 800 520" role="img" aria-label="Graf lokasi kampus"></svg>
+      <ul class="legend">
+        <li><i style="background:var(--acc)"></i>Asal</li>
+        <li><i style="background:var(--safe)"></i>Lokasi Aman</li>
+        <li><i style="background:var(--cur)"></i>Sedang Diproses</li>
+        <li><i style="background:var(--path)"></i>Rute Akhir</li>
+      </ul>
+    </section>
+
+    <aside class="side">
+      <section>
+        <div id="msg" class="msg"></div>
+        <div id="res" class="res"></div>
+      </section>
+      <section>
+        <h2>Antrean Prioritas (Jarak, Simpul)</h2>
+        <div id="pq" class="pq"></div>
+      </section>
+      <section>
+        <h2>Tabel Jarak</h2>
+        <div class="tw"><table id="tb"></table></div>
+      </section>
+    </aside>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

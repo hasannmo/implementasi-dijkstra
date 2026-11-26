@@ -1,0 +1,159 @@
+/* ===== Warna ===== */
+:root {
+  --bg: #e8edf0;
+  --paper: #f7f9fa;
+  --grid: #dde5ea;
+  --tx: #14293d;
+  --mut: #5a6b7b;
+  --bd: #b9c6cf;
+  --acc: #0b5cad;
+  --safe: #0a8f5b;
+  --cur: #e8890c;
+  --vis: #8d9aa6;
+  --path: #c62828;
+  --edge: #a9b6c0;
+
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --bg: #0d1721;
+    --paper: #122130;
+    --grid: #1a2d3e;
+    --tx: #e3ebf1;
+    --mut: #94a5b3;
+    --bd: #2f4456;
+    --acc: #5aa2ee;
+    --safe: #3ecf94;
+    --cur: #f5a834;
+    --vis: #66788a;
+    --path: #ff7b7b;
+    --edge: #43586a;
+  }
+}
+
+/* ===== Dasar ===== */
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--tx);
+  font: 15px/1.55 Bahnschrift, "DIN Alternate", "Segoe UI", system-ui, sans-serif;
+}
+
+h1 { margin: 0 0 10px; font-size: 1.35rem; font-weight: 600; letter-spacing: -.01em; }
+h2 { margin: 0 0 8px; font-size: .95rem; font-weight: 600; }
+
+/* ===== Header & Kontrol ===== */
+header.top {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 18px 20px 12px;
+}
+
+.controls { display: flex; flex-wrap: wrap; gap: 8px 10px; align-items: center; }
+.controls label { display: flex; align-items: center; gap: 6px; color: var(--mut); }
+.count { margin-left: auto; color: var(--mut); font-variant-numeric: tabular-nums; }
+
+select, button {
+  font: inherit;
+  color: var(--tx);
+  background: var(--paper);
+  border: 1px solid var(--bd);
+  border-radius: 3px;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+button:hover:not(:disabled) { border-color: var(--tx); }
+button.primary { background: var(--tx); border-color: var(--tx); color: var(--paper); }
+button:disabled { opacity: .4; cursor: not-allowed; }
+:focus-visible { outline: 2px solid var(--acc); outline-offset: 2px; }
+input[type=range] { accent-color: var(--acc); }
+
+/* ===== Tata Letak Utama ===== */
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.65fr) minmax(300px, 1fr);
+  max-width: 1180px;
+  margin: 0 auto;
+  border-top: 1px solid var(--bd);
+  border-bottom: 1px solid var(--bd);
+  background: var(--paper);
+}
+@media (max-width: 860px) { .layout { grid-template-columns: 1fr; } }
+
+/* ===== Peta ===== */
+.map {
+  padding: 12px;
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 32px 32px;
+  border-right: 1px solid var(--bd);
+}
+@media (max-width: 860px) { .map { border-right: 0; border-bottom: 1px solid var(--bd); } }
+
+svg { display: block; width: 100%; height: auto; }
+
+.edge    { stroke: var(--edge); stroke-width: 2; }
+.edge.rx { stroke: var(--cur);  stroke-width: 3; }
+.edge.on { stroke: var(--path); stroke-width: 4; }
+
+.w, .dl { paint-order: stroke; stroke: var(--paper); stroke-width: 3px; }
+.w  { font-size: 11px; fill: var(--mut); }
+.dl { font-size: 11px; font-weight: 600; text-anchor: middle; fill: var(--tx); }
+
+.n circle { stroke-width: 3; }
+.n text {
+  font-size: 13px;
+  font-weight: 700;
+  text-anchor: middle;
+  dominant-baseline: central;
+  fill: #fff;
+  pointer-events: none;
+}
+
+/* ===== Legenda ===== */
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px 18px;
+  margin: 10px 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: .85rem;
+  color: var(--mut);
+  text-align: center;
+}
+.legend i {
+  display: inline-block;
+  width: 11px;
+  height: 11px;
+  margin-right: 6px;
+  border-radius: 50%;
+  vertical-align: -1px;
+}
+
+/* ===== Panel ===== */
+.side section { padding: 14px 16px; }
+.side section + section { border-top: 1px solid var(--bd); }
+
+.msg { min-height: 60px; }
+.msg b { color: var(--tx); font-weight: 600; }
+.res { margin-top: 10px; font-weight: 600; color: var(--tx); }
+
+.pq   { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; min-height: 28px; }
+.chip { border: 1px solid var(--bd); border-radius: 3px; padding: 1px 9px; font-size: .85rem; }
+.chip.top { border-color: var(--cur); background: color-mix(in srgb, var(--cur) 20%, transparent); }
+.empty { color: var(--mut); }
+
+.tw { max-height: 240px; overflow: auto; }
+table { width: 100%; border-collapse: collapse; font-size: .85rem; }
+th, td { padding: 3px 6px; border-bottom: 1px solid var(--grid); text-align: left; }
+th { color: var(--mut); font-weight: 600; }
+tr.cur { background: color-mix(in srgb, var(--cur) 22%, transparent); }

@@ -9,10 +9,10 @@ Kode | Nama                              | isSafe
   5  | Perpustakaan                      | false
   6  | Perumahan Blok U                  | false
   7  | Teknik Material Metalurgi         | false
-  8  | Informatika                       | false
+  8  | Infinits                          | false
   9  | Tower 2                           | false
  10  | Tower 1                           | false
- 11  | Tower 2                           | false
+ 11  | Kantin ITS                        | false
  12  | Stadion ITS                       | true
  13  | Asrama ITS                        | false
  14  | Teknik Kimia                      | false
