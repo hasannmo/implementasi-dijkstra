@@ -256,8 +256,8 @@ async function boot() {
     await loadData();
   } catch (e) {
     $("msg").innerHTML =
-      "<b>Server Python belum berjalan.</b> Jalankan <code>python server.py</code>, " +
-      "lalu buka http://127.0.0.1:8000";
+      "<b>Gagal memuat data dari API.</b> Periksa koneksi, lalu muat ulang halaman. " +
+      "Jika dijalankan lokal, gunakan <code>vercel dev</code>.";
     return;
   }
 

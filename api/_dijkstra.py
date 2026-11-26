@@ -102,7 +102,7 @@ def dijkstra_nearest_safe(start, graph, locations):
     return None, float("inf"), []
 
 def main():
-    base_dir = os.path.dirname(os.path.abspath(__file__))
+    base_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "_data")
     locations = load_locations(os.path.join(base_dir, "lokasi.txt"))
     graph = load_graph(os.path.join(base_dir, "weighted_graph_matrix.txt"))
 
