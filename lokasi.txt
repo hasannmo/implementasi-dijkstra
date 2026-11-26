@@ -1,0 +1,22 @@
+DAFTAR KODE & NAMA LOKASI
+
+Kode | Nama                              | isSafe
+-----+-----------------------------------+-------
+  1  | Teknik Informatika                | false
+  2  | Gedung Robotika                   | false
+  3  | Sirkuit ITS                       | true
+  4  | Parkiran Teknik Transportasi Laut | false
+  5  | Perpustakaan                      | false
+  6  | Perumahan Blok U                  | false
+  7  | Teknik Material Metalurgi         | false
+  8  | Informatika                       | false
+  9  | Tower 2                           | false
+ 10  | Tower 1                           | false
+ 11  | Tower 2                           | false
+ 12  | Stadion ITS                       | true
+ 13  | Asrama ITS                        | false
+ 14  | Teknik Kimia                      | false
+ 15  | Gedung Rektorat                   | false
+ 16  | Masjid Manarul Ilmi               | false
+ 17  | Taman Alumni                      | true
+ 18  | Graha ITS                         | false
