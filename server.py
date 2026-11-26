@@ -21,10 +21,8 @@ STATIC = {
     "/app.js": ("app.js", "text/javascript"),
 }
 
-
 def clean(v):
     return None if v == INF else v
-
 
 class Handler(BaseHTTPRequestHandler):
     def send(self, body, ctype="application/json", code=200):
@@ -62,7 +60,6 @@ class Handler(BaseHTTPRequestHandler):
 
     def log_message(self, *a):
         pass
-
 
 if __name__ == "__main__":
     srv = ThreadingHTTPServer(("127.0.0.1", 8000), Handler)
